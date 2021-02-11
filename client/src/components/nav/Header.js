@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { 
-    MailOutlined, 
+    HomeOutlined,
     UserAddOutlined,
     UserOutlined,
+    BarsOutlined,
+    ProfileOutlined,
     LogoutOutlined } from '@ant-design/icons';
 import firebase from 'firebase/app';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import * as userConstant from '../../redux/constant/userContants'; 
 
 const { Item, SubMenu } = Menu;
 
 const Header = () => {
-    const [current, setCurrent] = useState('home');
+    const [current, setCurrent] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
     const state = useSelector((state) => ({...state}));
@@ -26,7 +29,7 @@ const Header = () => {
     const logout = () => {
         firebase.auth().signOut();
         dispatch({
-            type: user.LOGOUT,
+            type: userConstant.LOGOUT,
             payload: null
         });
         history.push("/signin");
@@ -39,16 +42,15 @@ const Header = () => {
           selectedKeys={[current]}
           mode="horizontal"
         >
-        <Item icon={<MailOutlined />} key="home">
+        <Item icon={<HomeOutlined />} key="home">
             <Link to="/">Home</Link>
         </Item>
-        {user && (
-            <SubMenu key="sub1" title={user.email?.split('@')[0]}>
-                <Menu.Item key="Logout" onClick={logout} icon={<LogoutOutlined />}>Logout</Menu.Item>
+        {user?.email ? (
+            <SubMenu key="sub1" icon={<BarsOutlined />} title={user.email?.split('@')[0]}>
+                <Item key="Profile" icon={<ProfileOutlined />}>Profile</Item>
+                <Item key="Logout" onClick={logout} icon={<LogoutOutlined />}>Logout</Item>
             </SubMenu>
-        )}
-        
-        {!user?.email && (
+        ) : (
             <>
                 <Item icon={<UserAddOutlined />} key="signup" className="float-right">
                     <Link to="/signup">Signup</Link>
@@ -58,6 +60,9 @@ const Header = () => {
                 </Item>
             </>
         )}
+        
+        
+       
        
         
         {/* <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">

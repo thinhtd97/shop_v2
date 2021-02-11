@@ -6,7 +6,7 @@ import * as userContants from '../../redux/constant/userContants';
 import { Link, useHistory } from 'react-router-dom';
 import { 
     GoogleOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import { createOrUpdateUser } from '../../function/auth.js';
 
 const Login = () => {
     const [email, setEmail] = useState('thinhtd2109@gmail.com');
@@ -14,14 +14,21 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const history = useHistory()
     const dispatch = useDispatch();
-    const createOrUpdateUser = async (authToken) => {
-        const config = {
-            headers: {
-                authToken
-            }
+    const roledBaseRedirect = (res) => {
+        if(res.data.role === "admin") {
+          history.push('/admin/dashboard');
+        } else {
+          history.push('/user/history');
         }
-        return await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`, {}, config);
     }
+    // const createOrUpdateUser = async (authToken) => {
+    //     const config = {
+    //         headers: {
+    //             authToken
+    //         }
+    //     }
+    //     return await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`,{} , config)
+    // }
     const handleSubmit = async () => {
         setLoading(true);
         try {
@@ -37,12 +44,20 @@ const Login = () => {
             // });
             // history.push('/');
             
-            const config = {
-                headers: {
-                    authToken: idTokenResult.token
-                }
-            }   
-            await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`,{} , config)
+            createOrUpdateUser(idTokenResult.token).then((res) => {
+                dispatch({
+                    type: userContants.USER_LOGGED_IN,
+                    payload: {
+                        _id: res.data._id,
+                        name: res.data.name,
+                        email: res.data.email,
+                        role: res.data.role,
+                        token: idTokenResult.token,
+                    }
+                })
+                roledBaseRedirect(res);
+            })
+            // await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`,{} , config)
        } catch (error) {
             const key = `open${Date.now()}`;
             // custom message authentication
@@ -68,14 +83,19 @@ const Login = () => {
         auth.signInWithPopup(googleAuthProvider).then(async (result) => {
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult();
-            dispatch({
-                type: userContants.USER_LOGGED_IN,
-                payload: {
-                  email: user.email,
-                  token: idTokenResult.token
-                }
-            });
-            history.push('/');
+            createOrUpdateUser(idTokenResult.token).then((res) => {
+                dispatch({
+                    type: userContants.USER_LOGGED_IN,
+                    payload: {
+                        _id: res.data._id,
+                        name: res.data.name,
+                        email: res.data.email,
+                        role: res.data.role,
+                        token: idTokenResult.token,
+                    }
+                })
+                roledBaseRedirect(res);
+            })
         }).catch(error => {
             console.log(error);
             const key = `open${Date.now()}`;
@@ -91,10 +111,11 @@ const Login = () => {
         if(user && user.email) {
             history.push('/');
         }
-    }, [user])
+    }, [user, history])
     
     return (
-            <Row justify="center">
+        <>
+            <Row justify="center" className="content-side-right">
                 <Col span={10} style={{textAlign: 'center'}}>
                     {loading ? <Spin size="large" /> : <h1>Login</h1> }
                     <Form onFinish={handleSubmit} onFinishFailed={onFinishFailed} >
@@ -140,7 +161,7 @@ const Login = () => {
                     </Form>
                 </Col>
             </Row>
-        
+        </>
         
     )
 }

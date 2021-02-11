@@ -41,7 +41,7 @@ const RegisterComplete = ({ history }) => {
                 history.push('/');
             }
         } catch (error) {
-            const key = `open${Date.now()}`;
+            const key = `open${Date.now()}`;    
             notification['error']({
                 description: `${error}`,
                 key
@@ -57,14 +57,13 @@ const RegisterComplete = ({ history }) => {
     const { user } = state;
     useEffect(() => {
         setEmail(window.localStorage.getItem('emailForResgister'));
-        if(!email) return history.push('/signup');
         if(user && user.email) {
             history.push('/')
         }
-    }, [user])
+    }, [user, history])
     return (
         <>
-            <Row justify="center" gutter={16}>
+            <Row justify="center" gutter={16} className="content-side-right">
                 <Col span={12}>
                     <Form onFinish={handleSubmit} onFinishFailed={onFinishFailed} initialValues={email}> 
                         <Form.Item><h1>Register Complete</h1></Form.Item>
@@ -84,7 +83,7 @@ const RegisterComplete = ({ history }) => {
                             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" block htmlType="submit">
                                 Complete Registration
                             </Button>
                         </Form.Item>

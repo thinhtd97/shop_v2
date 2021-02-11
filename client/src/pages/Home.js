@@ -1,10 +1,11 @@
+import { Row } from 'antd';
 import React from 'react'
 
 const Home = () => {
     return (
-        <div>
+        <Row className="content-side-right">
             Home Page
-        </div>
+        </Row>
     )
 }
 

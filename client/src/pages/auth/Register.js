@@ -5,15 +5,15 @@ import { auth } from '../../firebase';
 
 const Register = ({ history }) => {
     const [email, setEmail] = useState('');
-    const tailLayout = { wrapperCol: { offset: 8, span: 16 } };
-    const layout = { labelCol: { span: 8 }, wrapperCol: { span: 16 } };
+    const tailLayout = { wrapperCol: { offset: 3, span: 24 } };
+    // const layout = { labelCol: { span: 16 }, wrapperCol: { span: 24 } };
     
     const handleSubmit = async () => {
         const config = {
             url: process.env.REACT_APP_REDIRECT_URL,
             handleCodeInApp: true
         }
-
+        
         await auth.sendSignInLinkToEmail(email, config);
         const key = `open${Date.now()}`;
         notification['success']({
@@ -37,10 +37,10 @@ const Register = ({ history }) => {
         }
     }, [user])
     return (
-            <Row>
-                <Col span={12}>
-                    <h1>Signup</h1>
-                    <Form {...layout} onFinish={handleSubmit} onFinishFailed={onFinishFailed} >
+            <Row justify="center" className="content-side-right">
+                <Col span={10}>
+                    <h1 style={{textAlign: 'center'}}>Signup</h1>
+                    <Form onFinish={handleSubmit} onFinishFailed={onFinishFailed} >
                         <Form.Item
                             label="Email"
                             name="username"
@@ -52,7 +52,7 @@ const Register = ({ history }) => {
                             placeholder="Email"/>
                         </Form.Item>
                         <Form.Item {...tailLayout}>
-                            <Button type="primary" htmlType="submit">Signup</Button>
+                            <Button block type="primary" shape="round" htmlType="submit">Signup</Button>
                         </Form.Item>
                     </Form>
                 </Col>

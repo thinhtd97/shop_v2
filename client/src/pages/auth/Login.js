@@ -6,27 +6,43 @@ import * as userContants from '../../redux/constant/userContants';
 import { Link, useHistory } from 'react-router-dom';
 import { 
     GoogleOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('thinhtd2109@gmail.com');
+    const [password, setPassword] = useState('Kaitokid1412');
     const [loading, setLoading] = useState(false);
     const history = useHistory()
     const dispatch = useDispatch();
+    const createOrUpdateUser = async (authToken) => {
+        const config = {
+            headers: {
+                authToken
+            }
+        }
+        return await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`, {}, config);
+    }
     const handleSubmit = async () => {
         setLoading(true);
         try {
             const result = await auth.signInWithEmailAndPassword(email, password);
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult();
-            dispatch({
-                type: userContants.USER_LOGGED_IN,
-                payload: {
-                name: user.email,
-                token: idTokenResult.token
+            // dispatch({
+            //     type: userContants.USER_LOGGED_IN,
+            //     payload: {
+            //     name: user.email,
+            //     token: idTokenResult.token
+            //     }
+            // });
+            // history.push('/');
+            
+            const config = {
+                headers: {
+                    authToken: idTokenResult.token
                 }
-            });
-            history.push('/');
+            }   
+            await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`,{} , config)
        } catch (error) {
             const key = `open${Date.now()}`;
             // custom message authentication

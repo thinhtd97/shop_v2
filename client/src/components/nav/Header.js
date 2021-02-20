@@ -5,6 +5,7 @@ import {
     UserOutlined,
     BarsOutlined,
     ProfileOutlined,
+    DashboardOutlined,
     LogoutOutlined } from '@ant-design/icons';
 import firebase from 'firebase/app';
 import { Menu } from 'antd';
@@ -47,6 +48,15 @@ const Header = () => {
         </Item>
         {user?.email ? (
             <SubMenu key="sub1" icon={<BarsOutlined />} title={user.email?.split('@')[0]}>
+                {user && user.role === "subscriber" ? (
+                    <Item key="history" icon={<DashboardOutlined />}>
+                        <Link to="/user/history">Dashboard</Link>
+                    </Item>
+                ) : (
+                    <Item key="admindb" icon={<DashboardOutlined />}>
+                        <Link to="/admin/dashboard">Dashboard</Link>
+                    </Item>
+                )}
                 <Item key="Profile" icon={<ProfileOutlined />}>Profile</Item>
                 <Item key="Logout" onClick={logout} icon={<LogoutOutlined />}>Logout</Item>
             </SubMenu>
@@ -60,11 +70,6 @@ const Header = () => {
                 </Item>
             </>
         )}
-        
-        
-       
-       
-        
         {/* <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
             <Menu.Item key="5">Option 5</Menu.Item>
             <Menu.Item key="6">Option 6</Menu.Item>

@@ -10,11 +10,11 @@ exports.createOrUpdate = asyncHandler(async (req, res) => {
         const newUser = await new User({ name, email, picture }).save();
         res.json(newUser);
     }
-})
+});
 
 exports.currentUser = asyncHandler((req, res) => {
     User.findOne({ email: req.user.email }).exec((err, user) => {
         if(err) throw new Error(err);
         res.json(user);
     })
-})
+});

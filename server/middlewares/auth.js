@@ -4,22 +4,25 @@ const asyncHandler = require('express-async-handler');
 
 exports.authCheck = asyncHandler(async (req, res, next) => {
     try {
-        let firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);
-        req.user = firebaseUser;
-        next();
+        if(req.headers.authtoken) {
+            let firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);
+            req.user = firebaseUser;
+            next();
+        } else {
+            res.status(404)
+            throw new Error("Not authorized, no token");
+        }
     } catch (error) {
-        res.status(401).json({
-            err: 'Invalid or expired token'
-        })
+        res.status(401)
+        throw new Error("Invalid or expired token");
     }
 })
 exports.adminCheck = asyncHandler(async (req, res, next) => {
     const { email } = req.user;
     const adminUser = await User.findOne({ email });
     if(adminUser.role !== "admin") {
-        return res.status(403).json({
-            err: "Admin resource. Access denied."
-        })
+        res.status(403)
+        throw new Error("Admin resource. Access denied.");
     }
     next();
 })

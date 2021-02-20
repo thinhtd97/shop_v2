@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const authRouter = require('./routes/auth.js');
+const categoryRouter = require('./routes/category.js');
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ const PORT = process.env.PORT || 5000;
 const api = process.env.API;
 
 app.use(api, authRouter);
+app.use(api, categoryRouter)
 
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);

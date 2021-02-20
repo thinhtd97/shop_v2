@@ -10,3 +10,7 @@
     display: flex;
     justify-content: center;
 }
+.breadcrumbct {
+    height: 50px;
+    padding: 20px;
+}

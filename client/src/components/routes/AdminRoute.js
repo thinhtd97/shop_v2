@@ -7,7 +7,7 @@ import { current_admin } from '../../function/auth';
 
 const AdminRoute = ({ children, ...rest }) => {
     const { user } = useSelector((state) => ({...state}));
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
     useEffect(() => {
         if(user && user.token) {
             current_admin(user.token).then(() => {

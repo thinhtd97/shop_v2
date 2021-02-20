@@ -32,7 +32,7 @@ const Password = ({ history }) => {
         console.log('Failed:', errorInfo);
     };
     return (
-            <Row justify="center" className="content-side-right" style={{marginTop: '20px'}}>
+            <Row justify="center" style={{marginTop: '20px'}}>
                 <Col span={10}>
                     <div className="title">
                         {loading ? (<Spin size="large" style={{marginBottom: '10px'}} />) : (<h1>Password Update</h1>)}

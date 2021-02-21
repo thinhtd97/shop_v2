@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const authRouter = require('./routes/auth.js');
 const categoryRouter = require('./routes/category.js');
+const { notFound, errorHandler } = require('./middlewares/errorHandler.js');
 
 dotenv.config();
 
@@ -33,6 +34,10 @@ const api = process.env.API;
 
 app.use(api, authRouter);
 app.use(api, categoryRouter)
+
+app.use(notFound)
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);

@@ -21,7 +21,7 @@ const AdminNav = () => {
         mode="inline"
       >
          <Item icon={<DashboardOutlined />} key="dashboard" className="float-right">
-            <Link to="/admin">Dashboard</Link>
+            <Link to="/admin/dashboard">Dashboard</Link>
         </Item>
         <Item icon={<GroupOutlined />} key="product" className="float-right">
             <Link to="/admin/product">Product</Link>
@@ -31,7 +31,7 @@ const AdminNav = () => {
         </Item>
         <SubMenu key="category" icon={<AppstoreOutlined />} title="Category">
             <Item key="createCategory">
-                <Link to="/admin/category">Create</Link>
+                <Link to="/admin/category/create">Create</Link>
             </Item>
             <Item key="listCategory">
                 <Link to="/admin/category/list">List</Link>

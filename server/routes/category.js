@@ -8,7 +8,7 @@ router.put('/category/update/:slug', authCheck, adminCheck, update);
 router.post('/category', authCheck, adminCheck, create);
 router.get('/categories', list);
 router.route('/category/:slug')
-.get(authCheck, adminCheck, read)
+.get(read)
 .delete(authCheck, adminCheck, remove);
 
 module.exports = router;

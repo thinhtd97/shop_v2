@@ -17,12 +17,11 @@ import UserNav from './components/nav/UserNav';
 import { Row } from 'antd';
 import Password from './pages/user/Password';
 import AdminRoute from './components/routes/AdminRoute';
-import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminNav from './components/nav/AdminNav';
-import CategoryCreate from './pages/admin/category/CategoryCreate';
-import ListCategory from './pages/admin/category/ListCategory';
-import UpdateCategory from './pages/admin/category/UpdateCategory';
-
+import AdminDashboard from './pages/admin/AdminDashboard';
+import CategoryCreate from './pages/admin/Category/CreateCategory';
+import ListCategory from './pages/admin/Category/ListCategory';
+import UpdateCategory from './pages/admin/Category/UpdateCategory';
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({...state})); 
@@ -59,30 +58,14 @@ const App = () => {
               <Route path="/signup/complete" component={RegisterComplete} />
               <Route path="/forgot/password" component={ForgotPassword} />
               <Route path="/password" component={Password} />
-              <Route path='/user/:path?' exact>
-                  <UserNav />
-                  <Switch>
-                    <UserRoute path="/user/history" component={HistoryUser} exact />
-                  </Switch>
-              </Route>
-              <Route path='/admin/:path?' exact>
-                  <AdminNav />
-                  <Switch>
-                    <AdminRoute path="/admin" component={AdminDashboard} exact />
-                    <AdminRoute path="/admin/category" component={CategoryCreate} exact />
-                  </Switch>
-              </Route>
-              <Route path='/admin/:path/:path?' exact>
-                  <AdminNav />
-                  <Switch>
-                    <AdminRoute path="/admin/category/list" component={ListCategory} exact />
-                  </Switch>
-              </Route>
-              <Route path='/admin/:path/:path/:path' exact>
-                  <AdminNav />
-                  <Switch>
-                    <AdminRoute path="/admin/category/update/:slug" component={UpdateCategory}  />
-                  </Switch>
+              <Route path='/admin/:path/:path?/:path?' exact>
+                <AdminNav />
+                <Switch>
+                  <AdminRoute path='/admin/dashboard' component={AdminDashboard} exact />
+                  <AdminRoute path="/admin/category/create" component={CategoryCreate} />
+                  <AdminRoute path="/admin/category/list" component={ListCategory} />
+                  <AdminRoute path="/admin/category/update/:slug" component={UpdateCategory} />
+                </Switch>
               </Route>
         </Switch>
       </Row>

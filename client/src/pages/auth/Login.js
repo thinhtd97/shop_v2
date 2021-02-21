@@ -21,28 +21,12 @@ const Login = () => {
           history.push('/user/history');
         }
     }
-    // const createOrUpdateUser = async (authToken) => {
-    //     const config = {
-    //         headers: {
-    //             authToken
-    //         }
-    //     }
-    //     return await axios.post(`${process.env.REACT_APP_API}/createOrUpdate`,{} , config)
-    // }
     const handleSubmit = async () => {
         setLoading(true);
         try {
             const result = await auth.signInWithEmailAndPassword(email, password);
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult();
-            // dispatch({
-            //     type: userContants.USER_LOGGED_IN,
-            //     payload: {
-            //     name: user.email,
-            //     token: idTokenResult.token
-            //     }
-            // });
-            // history.push('/');
             
             createOrUpdateUser(idTokenResult.token).then((res) => {
                 dispatch({

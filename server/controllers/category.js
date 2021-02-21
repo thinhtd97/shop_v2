@@ -5,10 +5,12 @@ const slugify = require('slugify')
 exports.create = asyncHandle(async (req, res) => {
     try {
         const { name } = req.body;
-        const category = await new Category({ name, slug: slugify(name).toLowerCase() }).save()
+        const category = await new Category({ name, slug: slugify(name).toLowerCase() }).save();
         res.json(category);
     } catch (error) {
-        res.status(400).send('Create Category Failed.')
+        console.log(error);
+        res.status(400)
+        throw new Error("Create Category Failed.")
     }
 })
 exports.list = asyncHandle(async (req, res) => {
@@ -26,20 +28,21 @@ exports.update = asyncHandle(async (req, res) => {
             { name, slug: slugify(name)}, 
             { new: true });
         if(!updated) {
-            return res.status(401).json({
-                error: "Updated Failed."
-            })
+            res.status(400)
+            throw new Error("Update Failed.")
         }
         res.json(updated);
     } catch (error) {
-        console.log(error);
+        res.status(404)
+        throw new Error(`${error}`)
     }
 })
 exports.remove = asyncHandle(async (req, res) => {
     try {
         const deleted = await Category.findOneAndDelete({ slug: req.params.slug });
-        res.json(deleted)
+        res.json(deleted);
     } catch (error) {
-        res.status(400).send('Deleted Failed.')
+        res.status(400)
+        throw new Error("Delete failed.")
     }
 })

@@ -11,9 +11,6 @@ import { useEffect } from 'react';
 import * as userContants from './redux/constant/userContants';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import { current_user } from './function/auth';
-import UserRoute from './components/routes/UserRoute';
-import HistoryUser from './pages/user/HistoryUser';
-import UserNav from './components/nav/UserNav';
 import { Row } from 'antd';
 import Password from './pages/user/Password';
 import AdminRoute from './components/routes/AdminRoute';
@@ -22,6 +19,9 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import CategoryCreate from './pages/admin/Category/CreateCategory';
 import ListCategory from './pages/admin/Category/ListCategory';
 import UpdateCategory from './pages/admin/Category/UpdateCategory';
+import SubCreate from './pages/admin/Sub/SubCreate';
+import SubList from './pages/admin/Sub/SubList';
+import SubUpdate from './pages/admin/Sub/SubUpdate';
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({...state})); 
@@ -65,6 +65,9 @@ const App = () => {
                   <AdminRoute path="/admin/category/create" component={CategoryCreate} />
                   <AdminRoute path="/admin/category/list" component={ListCategory} />
                   <AdminRoute path="/admin/category/update/:slug" component={UpdateCategory} />
+                  <AdminRoute path="/admin/sub/create" component={SubCreate} />
+                  <AdminRoute path="/admin/sub/list" component={SubList} />
+                  <AdminRoute path="/admin/sub/update/:slug" component={SubUpdate} />
                 </Switch>
               </Route>
         </Switch>

@@ -37,9 +37,14 @@ const AdminNav = () => {
                 <Link to="/admin/category/list">List</Link>
             </Item>
         </SubMenu>
-        <Item icon={<SubnodeOutlined />} key="subcategory" className="float-right">
-            <Link to="/admin/sub">Sub Category</Link>
-        </Item>
+        <SubMenu key="subcategory" icon={<SubnodeOutlined />} title="Sub Category">
+            <Item key="createSubCategory">
+                <Link to="/admin/sub/create">Create</Link>
+            </Item>
+            <Item key="listSubCategory">
+                <Link to="/admin/sub/list">List</Link>
+            </Item>
+        </SubMenu>
         <Item icon={<PayCircleOutlined />} key="coupon" className="float-right">
             <Link to="/admin/coupon">Coupons</Link>
         </Item>

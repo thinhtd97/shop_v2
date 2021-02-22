@@ -11,7 +11,8 @@ const CategoryCreate = () => {
     const { loading } = createCategory;
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
     const dispatch = useDispatch();
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         dispatch(createCategoryRequest(name, user.token));
         setName("");
     }

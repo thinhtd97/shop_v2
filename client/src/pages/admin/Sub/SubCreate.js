@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Input, Row, Spin, Form, Select } from 'antd';
-import { listCategoryRequest } from '../../../redux/action/cateAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { createSubRequest } from '../../../redux/action/subAction';
+import { listCategoryRequest } from '../../../redux/action/cateAction';
 
 const { Option } = Select;
 
@@ -30,14 +30,14 @@ const SubCreate = () => {
             <Col span={10}>
                 {loading ? (<Spin size="large" style={{textAlign: 'center'}} indicator={antIcon} />) : (<h1 style={{textAlign: 'center'}}>Create Sub Category</h1>)}
                 <Form onFinish={handleSubmit} onFinishFailed={onFinishFailed}>
-                <Form.Item
-                        label="Parent Category"
-                        name="category"
-                        rules={[{ required: true, message: 'Please input your category!' }]}
-                    >
-                    <Select style={{ width: 300 }} onChange={(value) => setParent(value)} placeholder="Select A Category Name">
-                            {categories?.map(c => <Option key={c._id} value={c._id}>{c.name}</Option>)}
-                    </Select>
+                    <Form.Item
+                            label="Parent Category"
+                            name="category"
+                            rules={[{ required: true, message: 'Please input your category!' }]}
+                        >
+                        <Select style={{ width: 300 }} onChange={(value) => setParent(value)} placeholder="Select A Category Name">
+                                {categories?.map(c => <Option key={c._id} value={c._id}>{c.name}</Option>)}
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         label="Sub Category Name"

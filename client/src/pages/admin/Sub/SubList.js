@@ -65,7 +65,7 @@ const SubList = () => {
     return (
         <Row justify="center" className="content-side-right">
             <Col span={20}>
-                <h1 style={{textAlign: 'center'}}>List Category</h1>
+                <h1 style={{textAlign: 'center'}}>List Sub Category</h1>
                 <Input type="text" placeholder="Search" value={keyword} onChange={handleSearchChange} />
                 <hr />
                 <Table columns={columns} loading={{indicator: antIcon, spinning:loading}} key={data} dataSource={data} size="middle" />

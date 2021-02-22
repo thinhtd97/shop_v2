@@ -45,6 +45,28 @@ export const listCateReducer = (state = { categories: [] }, action) => {
             return state;
     }
 }
+export const listSubCateReducer = (state = { subCate: [] }, action) => {
+    switch(action.type) {
+        case category.GET_SUB_CATEGORY_REQUEST: 
+            return {
+                loading: true,
+            }
+        case category.GET_SUB_CATEGORY_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                subCate: action.payload
+            }
+        case category.GET_SUB_CATEGORY_FAILED: {
+            return {
+                loading: false,
+                error: action.payload
+            }
+        }
+        default: 
+            return state;
+    }
+}
 export const removeCateReducer = (state = {}, action) => {
     switch(action.type) {
         case category.REMOVE_CATEGORY_REQUEST: 

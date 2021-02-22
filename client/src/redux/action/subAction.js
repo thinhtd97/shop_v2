@@ -14,3 +14,16 @@ export const removeSubRequest = (slug, authToken) => ({
     slug,
     authToken
 })
+export const getDetailsSub = (slug) => ({
+    type: subConstant.DETAILS_SUB_CATEGORY_REQUEST,
+    slug
+})
+
+export const updateCategoryRequest = (history, slug, sub, parent, authToken) => ({
+    type: subConstant.UPDATE_SUB_CATEGORY_REQUEST,
+    slug,
+    sub,
+    parent,
+    authToken,
+    history
+})

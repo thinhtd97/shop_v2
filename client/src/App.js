@@ -22,6 +22,8 @@ import UpdateCategory from './pages/admin/Category/UpdateCategory';
 import SubCreate from './pages/admin/Sub/SubCreate';
 import SubList from './pages/admin/Sub/SubList';
 import SubUpdate from './pages/admin/Sub/SubUpdate';
+import ProductCreate from './pages/admin/Product/ProductCreate';
+import ListProduct from './pages/admin/Product/ListProduct';
 const App = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({...state})); 
@@ -68,6 +70,8 @@ const App = () => {
                   <AdminRoute path="/admin/sub/create" component={SubCreate} />
                   <AdminRoute path="/admin/sub/list" component={SubList} />
                   <AdminRoute path="/admin/sub/update/:slug" component={SubUpdate} />
+                  <AdminRoute path="/admin/product/create" component={ProductCreate} />
+                  <AdminRoute path="/admin/product/list" component={ListProduct} />
                 </Switch>
               </Route>
         </Switch>

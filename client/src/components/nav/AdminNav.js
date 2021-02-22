@@ -23,12 +23,17 @@ const AdminNav = () => {
          <Item icon={<DashboardOutlined />} key="dashboard" className="float-right">
             <Link to="/admin/dashboard">Dashboard</Link>
         </Item>
-        <Item icon={<GroupOutlined />} key="product" className="float-right">
+        {/* <Item icon={<GroupOutlined />} key="product" className="float-right">
             <Link to="/admin/product">Product</Link>
-        </Item>
-        <Item icon={<HddOutlined />} key="products" className="float-right">
-            <Link to="/admin/products">Products</Link>
-        </Item>
+        </Item> */}
+        <SubMenu key="product" icon={<HddOutlined />} title="Product">
+            <Item key="createProduct">
+                <Link to="/admin/product/create">Create</Link>
+            </Item>
+            <Item key="listProduct">
+                <Link to="/admin/product/list">List</Link>
+            </Item>
+        </SubMenu>
         <SubMenu key="category" icon={<AppstoreOutlined />} title="Category">
             <Item key="createCategory">
                 <Link to="/admin/category/create">Create</Link>

@@ -66,3 +66,49 @@ export const removeSubReducer = (state = {}, action) => {
             return state;
     }
 }
+export const detailsSubReducer = (state = { sub: {} }, action) => {
+    switch(action.type) {
+        case sub.DETAILS_SUB_CATEGORY_REQUEST: 
+            return {
+                ...state,
+                loading: true
+            }
+        case sub.DETAILS_SUB_CATEGORY_SUCCESS:
+            return {
+                loading: false,
+                sub: action.payload,
+            }
+        case sub.DETAILS_SUB_CATEGORY_FAILED: {
+            return {
+                loading: false,
+                error: action.payload
+            }
+        }
+        default: 
+            return state;
+    }
+}
+export const updateSubReducer = (state = {}, action) => {
+    switch(action.type) {
+        case sub.UPDATE_SUB_CATEGORY_REQUEST: 
+            return {
+                ...state,
+                loading: true,
+                success: false
+            }
+        case sub.UPDATE_SUB_CATEGORY_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case sub.UPDATE_SUB_CATEGORY_FAILED: {
+            return {
+                loading: false,
+                success: false,
+                error: action.payload
+            }
+        }
+        default: 
+            return state;
+    }
+}

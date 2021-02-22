@@ -44,6 +44,20 @@ function* listCate() {
         })
     }
 }
+function* listSubCate(action) {
+    try {
+        const { category_id } = action;
+        const { data } = yield call(() => axios.get(`${process.env.REACT_APP_API}/category/subs/${category_id}`));
+        yield put({ type: categoryConstant.GET_SUB_CATEGORY_SUCCESS, payload: data });
+    } catch (error) {
+        yield put({ 
+            type: categoryConstant.GET_SUB_CATEGORY_FAILED, 
+            payload: error.response && error.response.data.message ? 
+            error.response.data.message : 
+            error.message 
+        })
+    }
+}
 function* removeCate(action) {
     try {
         const { slug, authToken } = action;
@@ -122,4 +136,5 @@ export default function* cateSaga() {
     yield takeEvery(categoryConstant.REMOVE_CATEGORY_REQUEST, removeCate);
     yield takeEvery(categoryConstant.DETAILS_CATEGORY_REQUEST, detailsCate);
     yield takeEvery(categoryConstant.UPDATE_CATEGORY_REQUEST, updateCate);
+    yield takeEvery(categoryConstant.GET_SUB_CATEGORY_REQUEST, listSubCate);
 }

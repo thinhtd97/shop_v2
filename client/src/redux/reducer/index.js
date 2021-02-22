@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { userReducer } from './userReducer';
 import * as cateReducer from './cateReducer'
 import * as subReducer from './subReducer';
+import * as productReducer from './productReducer';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -10,9 +11,13 @@ const rootReducer = combineReducers({
     removeCategory: cateReducer.removeCateReducer,
     detailsCate: cateReducer.detailsCateReducer,
     updateCate: cateReducer.updateCateReducer,
+    listSubCate: cateReducer.listSubCateReducer,
     createSubCate: subReducer.createSubReducer,
     listSubs: subReducer.listSubReducer,
-    removeSub: subReducer.removeSubReducer
+    removeSub: subReducer.removeSubReducer,
+    detailSub: subReducer.detailsSubReducer,
+    createProduct: productReducer.createProductReducer,
+    listProducts: productReducer.listProductReducer,
 })
 
 export default rootReducer; 

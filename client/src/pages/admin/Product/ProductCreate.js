@@ -1,9 +1,11 @@
-import { Button, Col, Input, Row, Spin, Form, Select, Space } from 'antd';
+import { Button, Col, Input, Row, Spin, Form, Select, Avatar, Badge } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Resizer from 'react-image-file-resizer';
 import { LoadingOutlined } from '@ant-design/icons';
 import { createCategoryRequest } from '../../../redux/action/productAction';
 import { listCategoryRequest, listSubCategoryRequest } from '../../../redux/action/cateAction';
+import axios from 'axios';
 
 const initialState = {
     name: '',
@@ -32,7 +34,6 @@ const ProductCreate = () => {
         subs,
         shipping,
         quantity,
-        images,
         colors,
         brands,
         brand,
@@ -58,6 +59,29 @@ const ProductCreate = () => {
         setValues({ ...values, subs: [], category: value });
         dispatch(listSubCategoryRequest(value));
     }
+    const fileUploadChangeAndResize = (e) => {
+        setLoading(true);
+        let files = e.target.files;
+        let allUploadedFiles = values.images;
+        if(files) {
+            for(let i = 0; i < files.length; i++) {
+               Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (uri) => {
+                axios.post(`${process.env.REACT_APP_API}/uploadimages`, { image: uri }, {
+                    headers: {
+                        authToken: user?.token
+                    }
+                }).then(res => {
+                    setLoading(false);
+                    allUploadedFiles.push(res.data);
+                    setValues({ ...values, images: allUploadedFiles })
+                }).catch(err => {
+                    setLoading(false);
+                    console.log("Upload Error: " + err);
+                })
+               }, 'base64')
+            }
+        }
+    }
     const selectProps = {
         mode: 'multiple',
         style: { width: '100%' },
@@ -69,6 +93,25 @@ const ProductCreate = () => {
         placeholder: "Sub Categories",
         maxTagCount: 'responsive',
       };
+    const handleImageRemove = (public_id) => {
+        setLoading(true);
+        axios.post(`${process.env.REACT_APP_API}/removeimage`, { public_id }, {
+            headers: {
+                authToken: user?.token
+            }
+        })
+        .then((res) => {
+            const { images } = values;
+            let filteredImages = images.filter((item) => {
+                return item.public_id !== public_id;
+            });
+            setValues({ ...values, images: filteredImages })
+            setLoading(false)
+        }).catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+    }
     useEffect(() => {
         dispatch(listCategoryRequest());
     }, [dispatch])
@@ -78,7 +121,6 @@ const ProductCreate = () => {
                 {loading ? (<Spin size="large" indicator={antIcon} />) : 
                 (<h1 style={{textAlign: 'center'}}>Create Product</h1>)}
                 <Form onFinish={handleSubmit} onFinishFailed={onFinishFailed}  >
-                   
                     <Form.Item
                         label="Product Name"
                         name="productname"
@@ -126,6 +168,45 @@ const ProductCreate = () => {
                             {categories?.map(c => (<Option key={c._id} value={c._id}>{c.name}</Option>))}
                        </Select>
                     </Form.Item>
+                    <Form.Item
+                        label="Image"
+                        name="image"
+                        rules={[{ required: true, message: 'Please input your image!' }]}
+                        style={ values.images.length >= 1 ? {marginBottom: '0px'} : {}}
+                    >
+
+                        <Input 
+                            name="image"
+                            type="file" 
+                            accept="images/*"
+                            value={values.images}
+                            onChange={fileUploadChangeAndResize} 
+                            multiple
+
+                        />
+                        
+                        
+                    </Form.Item>
+                    {values.images?.map((image) => (
+                        <Badge 
+                            count="X"  
+                            key={image.public_id} 
+                            onClick={() => handleImageRemove(image.public_id)}
+                            style={{cursor: 'pointer',marginTop: '1.5rem'}}
+                        >
+                            <Avatar 
+                                style={{
+                                    marginLeft: '5rem', 
+                                    marginBottom: '1rem', 
+                                    marginTop: '1rem',
+                                }} 
+                                src={image.url} 
+                                size={40}
+                                shape="square"
+                            />
+                        </Badge>
+                       
+                    ))}
                     <Form.Item
                         label="Sub Categories"
                     >

@@ -31,13 +31,14 @@ function* createProduct(action) {
         })
     }
 }
-function* listProducts() {
+function* listProducts(action) {
     try {
-        const { data } = yield call(() => axios.get(`${process.env.REACT_APP_API}/products`));
-        yield put({ type: productConstant.LIST_PRODUCT_SUCCESS, payload: data });
+        const { count } = action;
+        const { data } = yield call(() => axios.get(`${process.env.REACT_APP_API}/products/${count}`));
+        yield put({ type: productConstant.LIST_PRODUCT_BY_COUNT_SUCCESS, payload: data });
     } catch (error) {
         yield put({ 
-            type: productConstant.LIST_PRODUCT_FAILED, 
+            type: productConstant.LIST_PRODUCT_BY_COUNT_FAILED, 
             payload: error.response && error.response.data.message ? 
             error.response.data.message : 
             error.message 
@@ -46,5 +47,5 @@ function* listProducts() {
 }
 export default function* productSaga() {
     yield takeEvery(productConstant.CREATE_PRODUCT_REQUEST, createProduct);
-    yield takeEvery(productConstant.LIST_PRODUCT_REQUEST, listProducts);
+    yield takeEvery(productConstant.LIST_PRODUCT_BY_COUNT_REQUEST, listProducts);
 }

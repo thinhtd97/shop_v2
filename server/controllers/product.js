@@ -40,7 +40,11 @@ exports.create = asyncHandle(async (req, res) => {
    }
 })
 exports.list = asyncHandle(async (req, res) => {
-     const products = await Product.find({}).populate('category', '_id name');
+     const products = await Product.find()
+          .populate('category', '_id name')
+          .populate('subs')
+          .sort([['createdAt', 'desc']])
+          .limit(parseInt(req.params.count));
      if(products) {
           return res.status(200).json(products);
      } else {

@@ -25,17 +25,17 @@ export const createProductReducer = (state = {}, action) => {
 }
 export const listProductReducer = (state = { products: [] }, action) => {
     switch(action.type) {
-        case product.LIST_PRODUCT_REQUEST: 
+        case product.LIST_PRODUCT_BY_COUNT_REQUEST: 
             return {
                 loading: true,
             }
-        case product.LIST_PRODUCT_SUCCESS:
+        case product.LIST_PRODUCT_BY_COUNT_SUCCESS:
             return {
                 loading: false,
                 success: true,
                 products: action.payload
             }
-        case product.LIST_PRODUCT_FAILED: {
+        case product.LIST_PRODUCT_BY_COUNT_FAILED: {
             return {
                 loading: false,
                 error: action.payload

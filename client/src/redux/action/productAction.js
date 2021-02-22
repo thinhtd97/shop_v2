@@ -5,6 +5,7 @@ export const createCategoryRequest = (product, authToken) => ({
     product,
     authToken
 })
-export const listProductRequest = () => ({
-    type: productConstant.LIST_PRODUCT_REQUEST
+export const listProductRequest = (count) => ({
+    type: productConstant.LIST_PRODUCT_BY_COUNT_REQUEST,
+    count
 })

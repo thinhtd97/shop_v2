@@ -1,5 +1,7 @@
-const cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary').v2;
 const asyncHandle = require('express-async-handler');
+const dotenv = require('dotenv');
+dotenv.config();
 
 //config
 cloudinary.config({
@@ -9,14 +11,19 @@ cloudinary.config({
 })
 
 exports.upload = asyncHandle(async (req, res) => {
-    let result = await cloudinary.uploader.upload(req.body.image, {
-        public_id: `${Date.now()}`,
-        resource_type: 'auto' // jpg, png
-    });
-    res.json({
-        public_id: result.public_id,
-        url: result.secure_url
-    })
+    try {
+        let result = await cloudinary.uploader.upload(req.body.image, {
+            public_id: `${Date.now()}`,
+            resource_type: 'auto' // jpg, png
+        });
+        res.json({
+            public_id: result.public_id,
+            url: result.secure_url
+        })
+    } catch (error) {
+        console.log(error);
+    }
+    
 })
 exports.remove = (req, res) => {
     let image_id = req.body.public_id;

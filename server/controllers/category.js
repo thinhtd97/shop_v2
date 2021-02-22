@@ -1,4 +1,5 @@
 const Category = require('../models/category.js');
+const Sub = require('../models/sub.js');
 const asyncHandle = require('express-async-handler');
 const slugify = require('slugify')
 
@@ -45,4 +46,14 @@ exports.remove = asyncHandle(async (req, res) => {
         res.status(400)
         throw new Error("Category Delete failed.")
     }
+})
+exports.getSubs = asyncHandle(async (req, res) => {
+    try {
+        const subs = await Sub.find({ parent: req.params.id }).populate('parent', '_id name');
+        res.json(subs);
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+    
 })

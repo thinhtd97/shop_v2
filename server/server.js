@@ -6,6 +6,8 @@ const cors = require('cors');
 const authRouter = require('./routes/auth.js');
 const categoryRouter = require('./routes/category.js');
 const subRouter = require('./routes/sub.js');
+const productRouter = require('./routes/product.js');
+const uploadRouter = require('./routes/cloudinary.js');
 const { notFound, errorHandler } = require('./middlewares/errorHandler.js');
 
 dotenv.config();
@@ -36,6 +38,8 @@ const api = process.env.API;
 app.use(api, authRouter);
 app.use(api, categoryRouter);
 app.use(api, subRouter);
+app.use(api, productRouter);
+app.use(api, uploadRouter);
 
 app.use(notFound)
 

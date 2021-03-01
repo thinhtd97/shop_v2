@@ -35,7 +35,7 @@ const SubCreate = () => {
                             name="category"
                             rules={[{ required: true, message: 'Please input your category!' }]}
                         >
-                        <Select style={{ width: 300 }} onChange={(value) => setParent(value)} placeholder="Select A Category Name">
+                        <Select onChange={(value) => setParent(value)} placeholder="Select A Category Name">
                                 {categories?.map(c => <Option key={c._id} value={c._id}>{c.name}</Option>)}
                         </Select>
                     </Form.Item>

@@ -18,6 +18,8 @@ const rootReducer = combineReducers({
     detailSub: subReducer.detailsSubReducer,
     createProduct: productReducer.createProductReducer,
     listProducts: productReducer.listProductReducer,
+    updateProduct: productReducer.updateProductReducer,
+    detailsProduct: productReducer.detailsProductReducer
 })
 
 export default rootReducer; 

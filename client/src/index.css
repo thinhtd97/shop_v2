@@ -1,3 +1,13 @@
+@import "~antd/lib/style/index";
+
+
+.container {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    margin: auto;
+}
+
 .float-right {
     float: right;
 }

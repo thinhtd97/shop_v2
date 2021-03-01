@@ -15,7 +15,7 @@ const { Item, SubMenu } = Menu;
 const AdminNav = () => {
     return (
         <Menu
-        style={{ width: 256 }}
+        style={{ width: 256, height: '100%'}}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"

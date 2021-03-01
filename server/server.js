@@ -8,6 +8,7 @@ const categoryRouter = require('./routes/category.js');
 const subRouter = require('./routes/sub.js');
 const productRouter = require('./routes/product.js');
 const uploadRouter = require('./routes/cloudinary.js');
+const bannerSlideRouter = require('./routes/bannerSlider.js');
 const { notFound, errorHandler } = require('./middlewares/errorHandler.js');
 
 dotenv.config();
@@ -40,6 +41,7 @@ app.use(api, categoryRouter);
 app.use(api, subRouter);
 app.use(api, productRouter);
 app.use(api, uploadRouter);
+app.use(api, bannerSlideRouter);
 
 app.use(notFound)
 

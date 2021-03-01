@@ -3,6 +3,7 @@ import { userReducer } from './userReducer';
 import * as cateReducer from './cateReducer'
 import * as subReducer from './subReducer';
 import * as productReducer from './productReducer';
+import * as bannerReducer from './bannerReducer';
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     createProduct: productReducer.createProductReducer,
     listProducts: productReducer.listProductReducer,
     updateProduct: productReducer.updateProductReducer,
-    detailsProduct: productReducer.detailsProductReducer
+    detailsProduct: productReducer.detailsProductReducer,
+    createBanner: bannerReducer.createCateReducer
 })
 
 export default rootReducer; 

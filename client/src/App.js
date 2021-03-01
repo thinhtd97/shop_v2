@@ -26,6 +26,9 @@ import SubUpdate from './pages/admin/Sub/SubUpdate';
 import ProductCreate from './pages/admin/Product/ProductCreate';
 import ListProduct from './pages/admin/Product/ListProduct';
 import ProductUpdate from './pages/admin/Product/ProductUpdate';
+import ListBanner from './pages/admin/Banner/ListBanner';
+import UpdateBanner from './pages/admin/Banner/UpdateBanner';
+import CreateBanner from './pages/admin/Banner/CreateBanner';
 const { Header, Content, Footer } = Layout;
 const App = () => {
   const dispatch = useDispatch();
@@ -84,6 +87,9 @@ const App = () => {
                     <AdminRoute path="/admin/product/create" component={ProductCreate} />
                     <AdminRoute path="/admin/product/list" component={ListProduct} />
                     <AdminRoute path="/admin/product/update/:slug" component={ProductUpdate} />
+                    <AdminRoute path="/admin/banner/list" component={ListBanner} />
+                    <AdminRoute path="/admin/banner/create" component={CreateBanner} />
+                    <AdminRoute path="/admin/banner/update/:slug" component={UpdateBanner} />
                   </Switch>
                 </Route>
           </Switch>

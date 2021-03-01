@@ -14,6 +14,7 @@
 
 .content-side-right {
     width: calc(100% - 256px);
+    display: flex;
 }
 .title {
     text-align: center;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import { 
     DashboardOutlined, 
-    GroupOutlined, 
+    InsertRowAboveOutlined, 
     HddOutlined, 
     AppstoreOutlined, 
     SubnodeOutlined, 
@@ -48,6 +48,14 @@ const AdminNav = () => {
             </Item>
             <Item key="listSubCategory">
                 <Link to="/admin/sub/list">List</Link>
+            </Item>
+        </SubMenu>
+        <SubMenu key="bannerSlider" icon={<InsertRowAboveOutlined />} title="Banner">
+            <Item key="createBannerSlider">
+                <Link to="/admin/banner/create">Create</Link>
+            </Item>
+            <Item key="listBannerSlider">
+                <Link to="/admin/banner/list">List</Link>
             </Item>
         </SubMenu>
         <Item icon={<PayCircleOutlined />} key="coupon" className="float-right">

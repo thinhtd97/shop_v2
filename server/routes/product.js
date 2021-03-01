@@ -7,8 +7,9 @@ const router = express.Router();
 // router.put('/product/update/:slug', authCheck, adminCheck, update);
 router.post('/product', authCheck, adminCheck, create);
 router.get('/products/:count', list);
-// router.route('/product/:slug')
-// .get(read)
-// .delete(authCheck, adminCheck, remove);
+router.route('/product/:slug')
+.put(authCheck, adminCheck, update)
+.get(read)
+.delete(authCheck, adminCheck, remove);
 
 module.exports = router;

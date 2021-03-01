@@ -52,3 +52,30 @@ exports.list = asyncHandle(async (req, res) => {
           throw new Error("Product not found.")
      }
 })
+exports.read = asyncHandle(async (req, res) => {
+     let product = await Product.findOne({ slug: req.params.slug }).populate("category", "_id name");
+     res.json(product);
+ })
+exports.update = asyncHandle(async (req, res) => {
+     try {
+          if(req.body.name) {
+               req.body.slug = slugify(req.body.name);
+          }
+          const updated = await Product.findOneAndUpdate({slug: req.params.slug}, req.body, {
+               new: true
+          }).exec();
+          res.json(updated);
+     } catch (error) {
+          console.log(`Update Error: ${error}`);
+          return res.status(400).send('Product update fail.')
+     }
+})
+exports.remove = asyncHandle(async (req, res) => {
+     try {
+         const deleted = await Product.findOneAndDelete({ slug: req.params.slug });
+         res.json(deleted);
+     } catch (error) {
+         res.status(400)
+         throw new Error("Product Delete failed.")
+     }
+ })
